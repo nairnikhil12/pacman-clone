@@ -14,6 +14,8 @@ export default class MainGame extends Phaser.Scene {
     level_map;
     score = 0;
     score_text;
+    timer_text;
+    timed_event;
     max_score;
 
     constructor() {
@@ -22,6 +24,7 @@ export default class MainGame extends Phaser.Scene {
 
     init() {
         this.max_score = 0;
+        this.score = 0;
     }
 
     preload() {
@@ -29,13 +32,15 @@ export default class MainGame extends Phaser.Scene {
         this.load.image('candy', 'assets/images/candy.png');
         this.load.image('enemy', 'assets/images/enemy.png');
         this.load.image('wall', 'assets/images/wall.png');
-        this.load.json('level1', 'assets/levels/level1.json');
+        this.load.json(Constants.LEVEL_ID, `assets/levels/${Constants.LEVEL_ID}.json`);
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
     create() {
-        this.level_map = this.cache.json.get('level1')['layers'][0]['data'];
+        this.level_map = this.cache.json.get(Constants.LEVEL_ID)['layers'][0]['data'];
+
+        console.log(this.level_map);
 
         this.walls = this.physics.add.staticGroup();
         this.candies = this.physics.add.staticGroup();
@@ -73,12 +78,16 @@ export default class MainGame extends Phaser.Scene {
         // score text
         this.score_text = this.add.text(Constants.BLOCK_HEIGHT * 32, Constants.BLOCK_HEIGHT / 2, `Score:${this.score}/${this.max_score}`, {
             font: "32px sans-serif"
-        }).setDepth(1);
+        }).setDepth(2);
 
-        //this.physics.add.collider(this.player, this.candies);
+        // timer events
+        this.timed_event = this.time.addEvent({ delay: 6000000, callback: this.onClockEvent, callbackScope: this, repeat: 1 });
+        this.timer_text = this.add.text(32, 16, `Time: `, {
+            font: "32px sans-serif"
+        }).setDepth(2);
+
         this.physics.add.collider(this.enemy, this.walls);
         this.physics.add.collider(this.player, this.walls);
-        this.physics.add.collider(this.player, this.enemy);
 
         this.physics.add.overlap(
             this.player,
@@ -104,11 +113,13 @@ export default class MainGame extends Phaser.Scene {
         if(this.score == this.max_score) {
             this.handleGameOver();
         }
+
+        this.timer_text.setText('Time: ' + this.timed_event.getElapsedSeconds().toString().substr(0, 4));
     }
 
     handleGameOver(player, enemy) {
-        console.log('Game Over!');
         this.enemy.setVelocity(0, 0);
+        this.scene.start('GameOver');
     }
 
     handleCandyCollision(player, candy) {
