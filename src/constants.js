@@ -5,8 +5,7 @@ const Constants = {
     BLOCK_HEIGHT: 32,
     WINDOW_WIDTH: 1280,
     WINDOW_HEIGHT: 608,
-    NUMBER_OF_LEVELS: 2,
-    LEVEL_ID: 'level1'
+    NUMBER_OF_LEVELS: 3,
 };
 
 export default Constants;

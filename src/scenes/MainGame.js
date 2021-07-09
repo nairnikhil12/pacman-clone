@@ -12,19 +12,19 @@ export default class MainGame extends Phaser.Scene {
     walls;
 
     level_map;
-    score = 0;
+    score;
     score_text;
     timer_text;
     timed_event;
     max_score;
+    level_id;
 
     constructor() {
         super('MainGame');
     }
 
-    init() {
-        this.max_score = 0;
-        this.score = 0;
+    init(data) {
+        this.level_id = data.level;
     }
 
     preload() {
@@ -32,15 +32,15 @@ export default class MainGame extends Phaser.Scene {
         this.load.image('candy', 'assets/images/candy.png');
         this.load.image('enemy', 'assets/images/enemy.png');
         this.load.image('wall', 'assets/images/wall.png');
-        this.load.json(Constants.LEVEL_ID, `assets/levels/${Constants.LEVEL_ID}.json`);
+        this.load.json(this.level_id, `assets/levels/${this.level_id}.json`);
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
     create() {
-        this.level_map = this.cache.json.get(Constants.LEVEL_ID)['layers'][0]['data'];
-
-        console.log(this.level_map);
+        this.max_score = 0;
+        this.score = 0;
+        this.level_map = this.cache.json.get(this.level_id)['layers'][0]['data'];
 
         this.walls = this.physics.add.staticGroup();
         this.candies = this.physics.add.staticGroup();
@@ -111,7 +111,9 @@ export default class MainGame extends Phaser.Scene {
         this.enemy.update(this.player.x, this.player.y, this.level_map);
 
         if(this.score == this.max_score) {
-            this.handleGameOver();
+            this.enemy.setVelocity(0, 0);
+            const score_time = this.timed_event.getElapsedSeconds().toString().substr(0, 4);
+            this.scene.start('GameOver', { has_won: true, score: score_time, level: this.level_id });
         }
 
         this.timer_text.setText('Time: ' + this.timed_event.getElapsedSeconds().toString().substr(0, 4));
@@ -119,7 +121,7 @@ export default class MainGame extends Phaser.Scene {
 
     handleGameOver(player, enemy) {
         this.enemy.setVelocity(0, 0);
-        this.scene.start('GameOver');
+        this.scene.start('GameOver', { has_won: false, score: 0, level: this.level_id });
     }
 
     handleCandyCollision(player, candy) {

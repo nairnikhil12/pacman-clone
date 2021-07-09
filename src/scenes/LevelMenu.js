@@ -47,9 +47,8 @@ export default class LevelMenu extends Phaser.Scene {
                 if(pointer.y < image.y) return ;
                 if(pointer.y > image.y + image.displayHeight) return ;
 
-                Constants.LEVEL_ID = `level${this.current_level}`;
-
-                this.scene.start('MainGame');
+                const LEVEL_ID = `level${this.current_level}`;
+                this.scene.start('MainGame', {level: LEVEL_ID});
 
                 this.is_called = true;
             });
@@ -57,7 +56,7 @@ export default class LevelMenu extends Phaser.Scene {
             this.level_images.push(image);
         }
 
-        this.next_button = new Button("Next", Constants.WINDOW_WIDTH - 100, Constants.WINDOW_HEIGHT / 2, 32, this, () => {
+        this.next_button = new Button("Next", Constants.WINDOW_WIDTH - 50, Constants.WINDOW_HEIGHT / 2, 32, this, () => {
             this.goToNextLevel();
         });
         this.prev_button = new Button("Prev", 50, Constants.WINDOW_HEIGHT / 2, 32, this, () => {
