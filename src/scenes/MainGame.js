@@ -3,6 +3,11 @@ import Constants from "../constants.js";
 import Player from "../game/Player.js";
 import Enemy from "../game/Enemy.js";
 
+/***
+ * Fileoverview:
+ * Main Scene of the game.
+ */
+
 export default class MainGame extends Phaser.Scene {
     // sprites and groups
     cursors;

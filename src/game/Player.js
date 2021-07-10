@@ -1,6 +1,11 @@
 import Constants from '../constants.js';
 import Phaser from '../lib/phaser.js';
 
+/***
+ * Fileoverview:
+ * Implements the logic for updating the player sprite.
+ */
+
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture) {
         super(scene, x, y, texture);
@@ -9,8 +14,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.setCollideWorldBounds(true);
 
-        this.displayWidth = Constants.BLOCK_WIDTH - 0.1;
-        this.displayHeight = Constants.BLOCK_HEIGHT - 0.1;
+        this.displayWidth = Constants.BLOCK_WIDTH - 5;
+        this.displayHeight = Constants.BLOCK_HEIGHT - 5;
     }
 
     handleInput(cursors) {

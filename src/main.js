@@ -5,6 +5,11 @@ import LevelMenu from './scenes/LevelMenu.js';
 import TitleScreen from './scenes/TitleScreen.js';
 import Constants from './constants.js';
 
+/***
+ * Fileoverview:
+ * The entry point of the game.
+ */
+
 const config = {
     type: Phaser.AUTO,
     width: Constants.WINDOW_WIDTH,

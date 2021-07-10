@@ -1,3 +1,8 @@
+/***
+ * Fileoverview:
+ * Global constants
+ */
+
 const Constants = {
     PLAYER_SPEED_X: 320,
     PLAYER_SPEED_Y: 320,

@@ -1,3 +1,9 @@
+/***
+ * Fileoverview:
+ * A wrapper for converting a Phaser Text object to
+ * a Button.
+ */
+
 export default class Button {
     text;
 

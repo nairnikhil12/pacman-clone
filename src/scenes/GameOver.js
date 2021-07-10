@@ -2,6 +2,11 @@ import Phaser from "../lib/phaser.js";
 import Constants from "../constants.js";
 import Button from "../game/Button.js";
 
+/***
+ * Fileoverview:
+ * The game over screen. Displays the final score of the player.
+ */
+
 export default class GameOver extends Phaser.Scene {
     game_over_text;
     time_text;

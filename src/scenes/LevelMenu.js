@@ -2,6 +2,11 @@ import Phaser from "../lib/phaser.js";
 import Constants from "../constants.js";
 import Button from "../game/Button.js";
 
+/***
+ * Fileoverview:
+ * Scene for diplaying the levels to the player.
+ */
+
 export default class LevelMenu extends Phaser.Scene {
     level_images;
     level_name_text;
@@ -69,6 +74,10 @@ export default class LevelMenu extends Phaser.Scene {
         this.input.keyboard.on('keydown-LEFT', () => {
             this.goToPreviousLevel();
         });
+        this.input.keyboard.on('keydown-ENTER', () => {
+            const LEVEL_ID = `level${this.current_level}`;
+            this.scene.start('MainGame', {level: LEVEL_ID});
+        })
 
         this.level_images[this.current_level].setActive(true).setVisible(true);
 

@@ -2,6 +2,11 @@ import Phaser from "../lib/phaser.js";
 import Constants from "../constants.js";
 import Button from "../game/Button.js";
 
+/***
+ * Fileoverview:
+ * Title screen of the game.
+ */
+
 export default class TitleScreen extends Phaser.Scene {
     constructor() {
         super('TitleScreen');
