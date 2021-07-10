@@ -9,8 +9,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.setCollideWorldBounds(true);
 
-        this.displayWidth = Constants.BLOCK_WIDTH;
-        this.displayHeight = Constants.BLOCK_HEIGHT;
+        this.displayWidth = Constants.BLOCK_WIDTH - 0.1;
+        this.displayHeight = Constants.BLOCK_HEIGHT - 0.1;
     }
 
     handleInput(cursors) {

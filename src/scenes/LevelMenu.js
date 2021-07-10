@@ -63,6 +63,13 @@ export default class LevelMenu extends Phaser.Scene {
             this.goToPreviousLevel();
         });
 
+        this.input.keyboard.on('keydown-RIGHT', () => {
+            this.goToNextLevel();
+        });
+        this.input.keyboard.on('keydown-LEFT', () => {
+            this.goToPreviousLevel();
+        });
+
         this.level_images[this.current_level].setActive(true).setVisible(true);
 
         this.level_name_text = this.add.text(Constants.WINDOW_WIDTH / 2, 32, `Level ${this.current_level}`, {
