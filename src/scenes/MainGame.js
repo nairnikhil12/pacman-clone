@@ -24,8 +24,6 @@ export default class MainGame extends Phaser.Scene {
     max_score;
     level_id;
 
-    counter;
-
     constructor() {
         super('MainGame');
     }
@@ -115,11 +113,7 @@ export default class MainGame extends Phaser.Scene {
 
     update() {
         this.player.handleInput(this.cursors);
-
-        this.counter = this.counter + 1 || 0;
-        if(this.counter % 10 === 0) {
-            this.enemy.update(this.player.x, this.player.y, this.level_map);
-        }
+        this.enemy.update(this.player.x, this.player.y, this.level_map);
 
         if(this.score == this.max_score) {
             this.enemy.setVelocity(0, 0);

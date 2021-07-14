@@ -7,8 +7,15 @@ import Phaser from '../lib/phaser.js';
  */
 
 export default class Enemy extends Phaser.Physics.Arcade.Sprite {
+    prev_x;
+    prev_y;
+    stuck_factor;
+
     constructor(scene, x, y, texture) {
         super(scene, x, y, texture);
+
+        this.stuck_factor = 0;
+
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
@@ -73,10 +80,22 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         }
 
         if(Math.abs(move_x - enemy_x) > Math.abs(move_y - enemy_y)) {
-            this.setVelocity(0, ((move_x - enemy_x) / Math.abs(move_x - enemy_x)) * Constants.PLAYER_SPEED_X / 2);
+            this.setVelocity(0, ((move_x - enemy_x) / Math.abs(move_x - enemy_x)) * Constants.PLAYER_SPEED_X / 2.25);
         }
         else {
-            this.setVelocity(((move_y - enemy_y) / Math.abs(move_y - enemy_y)) * Constants.PLAYER_SPEED_Y / 2, 0);
+            this.setVelocity(((move_y - enemy_y) / Math.abs(move_y - enemy_y)) * Constants.PLAYER_SPEED_Y / 2.25, 0);
         }
+
+        if(this.prev_x == this.x && this.prev_y == this.y)
+            this.stuck_factor++;
+        else
+            this.stuck_factor = 0;
+
+        if(this.stuck_factor > 10) {
+            this.setVelocity(Constants.PLAYER_SPEED_X, Constants.PLAYER_SPEED_Y);
+        }
+
+        this.prev_x = this.x;
+        this.prev_y = this.y;
     }
 }
