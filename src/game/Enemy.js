@@ -21,8 +21,8 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
         this.setCollideWorldBounds(true);
 
-        this.displayWidth = Constants.BLOCK_WIDTH;
-        this.displayHeight = Constants.BLOCK_HEIGHT;
+        this.displayWidth = Constants.BLOCK_WIDTH - 5;
+        this.displayHeight = Constants.BLOCK_HEIGHT - 5;
     }
 
     update(_player_x, _player_y, level_map) {

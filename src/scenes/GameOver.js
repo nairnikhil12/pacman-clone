@@ -1,6 +1,7 @@
 import Phaser from "../lib/phaser.js";
 import Constants from "../constants.js";
 import Button from "../game/Button.js";
+import { getHighscoreOfLevel, setHighscoreOfLevel } from "../game/Highscore.js";
 
 /***
  * Fileoverview:
@@ -37,6 +38,12 @@ export default class GameOver extends Phaser.Scene {
 
         if(this.has_won) {
             this.time_text = this.add.text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, `Final Time: ${this.score}`, {
+                font: "32px sans-serif"
+            }).setOrigin(0.5, 0.5);
+
+            setHighscoreOfLevel(this.level_id, Math.min(this.score, getHighscoreOfLevel(this.level_id) || 1000000000000));
+
+            this.add.text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2 + 35, `Best Time: ${getHighscoreOfLevel(this.level_id)}`, {
                 font: "32px sans-serif"
             }).setOrigin(0.5, 0.5);
         }

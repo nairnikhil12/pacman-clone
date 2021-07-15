@@ -1,6 +1,7 @@
 import Phaser from "../lib/phaser.js";
 import Constants from "../constants.js";
 import Button from "../game/Button.js";
+import { getHighscoreOfLevel } from "../game/Highscore.js";
 
 /***
  * Fileoverview:
@@ -10,10 +11,10 @@ import Button from "../game/Button.js";
 export default class LevelMenu extends Phaser.Scene {
     level_images;
     level_name_text;
+    highscore_text;
     current_level;
     next_button;
     prev_button;
-
     is_called;
 
     constructor() {
@@ -84,6 +85,10 @@ export default class LevelMenu extends Phaser.Scene {
         this.level_name_text = this.add.text(Constants.WINDOW_WIDTH / 2, 32, `Level ${this.current_level}`, {
             font: "32px sans-serif"
         }).setOrigin(0.5, 0.5);
+
+        this.highscore_text = this.add.text(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT - 100, `Best Time: ${getHighscoreOfLevel("level" + this.current_level) || "-"}`, {
+            font: "32px sans-serif"
+        }).setOrigin(0.5, 0.5);
     }
 
     update() {
@@ -99,10 +104,11 @@ export default class LevelMenu extends Phaser.Scene {
         this.level_images[this.current_level].setActive(true).setVisible(true);
 
         this.level_name_text.setText(`Level ${this.current_level}`);
+        this.highscore_text.setText(`Best Time: ${getHighscoreOfLevel("level" + this.current_level)}`);
     }
 
     goToPreviousLevel() {
-        if(this.current_level - 1 < 1)
+        if(this.current_level <= 1)
             return ;
 
         this.level_images[this.current_level].setActive(false).setVisible(false);
@@ -110,5 +116,6 @@ export default class LevelMenu extends Phaser.Scene {
         this.level_images[this.current_level].setActive(true).setVisible(true);
 
         this.level_name_text.setText(`Level ${this.current_level}`);
+        this.highscore_text.setText(`Best Time: ${getHighscoreOfLevel("level" + this.current_level)}`);
     }
 };
