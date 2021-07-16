@@ -92,7 +92,9 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             this.stuck_factor = 0;
 
         if(this.stuck_factor > 10) {
-            this.setVelocity(Constants.PLAYER_SPEED_X, Constants.PLAYER_SPEED_Y);
+            const dirx = (move_x === enemy_x ? 0 : (move_x - enemy_x) / Math.abs(move_x - enemy_x));
+            const diry = (move_y === enemy_y ? 0 : (move_y - enemy_y) / Math.abs(move_y - enemy_y));
+            this.setVelocity(-dirx * Constants.PLAYER_SPEED_X * 1.5, diry * Constants.PLAYER_SPEED_Y * 1.5);
         }
 
         this.prev_x = this.x;

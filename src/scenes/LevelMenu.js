@@ -104,7 +104,7 @@ export default class LevelMenu extends Phaser.Scene {
         this.level_images[this.current_level].setActive(true).setVisible(true);
 
         this.level_name_text.setText(`Level ${this.current_level}`);
-        this.highscore_text.setText(`Best Time: ${getHighscoreOfLevel("level" + this.current_level)}`);
+        this.highscore_text.setText(`Best Time: ${getHighscoreOfLevel("level" + this.current_level) || "-"}`);
     }
 
     goToPreviousLevel() {
@@ -116,6 +116,6 @@ export default class LevelMenu extends Phaser.Scene {
         this.level_images[this.current_level].setActive(true).setVisible(true);
 
         this.level_name_text.setText(`Level ${this.current_level}`);
-        this.highscore_text.setText(`Best Time: ${getHighscoreOfLevel("level" + this.current_level)}`);
+        this.highscore_text.setText(`Best Time: ${getHighscoreOfLevel("level" + this.current_level) || "-"}`);
     }
 };

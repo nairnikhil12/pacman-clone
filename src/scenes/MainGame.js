@@ -113,7 +113,7 @@ export default class MainGame extends Phaser.Scene {
 
     update() {
         this.player.handleInput(this.cursors);
-        this.enemy.update(this.player.x, this.player.y, this.level_map);
+       // this.enemy.update(this.player.x, this.player.y, this.level_map);
 
         if(this.score == this.max_score) {
             this.enemy.setVelocity(0, 0);
